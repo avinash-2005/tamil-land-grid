@@ -1,21 +1,26 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import DistrictFilter from "@/components/DistrictFilter";
-import PropertyListings from "@/components/PropertyListings";
-import BUSSystem from "@/components/BUSSystem";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import { useState } from "react";
+import InteractiveMap from "@/components/InteractiveMap";
+import MapHeader from "@/components/MapHeader";
+import BUSInfoPanel from "@/components/BUSInfoPanel";
 
 const Index = () => {
+  const [showBUSInfo, setShowBUSInfo] = useState(false);
+
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <Hero />
-      <DistrictFilter />
-      <PropertyListings />
-      <BUSSystem />
-      <Contact />
-      <Footer />
+    <div className="relative h-screen w-full overflow-hidden">
+      <MapHeader 
+        onToggleInfo={() => setShowBUSInfo(!showBUSInfo)}
+        showInfo={showBUSInfo}
+      />
+      
+      <div className="pt-14 h-full">
+        <InteractiveMap />
+      </div>
+      
+      <BUSInfoPanel 
+        isOpen={showBUSInfo}
+        onClose={() => setShowBUSInfo(false)}
+      />
     </div>
   );
 };
